@@ -1,6 +1,6 @@
 import { verifyDatabaseConnection } from '@bizziemoney/database';
 
-import { apiRuntime } from './index.js';
+import { apiRuntime } from './runtime.js';
 
 async function main(): Promise<void> {
   await verifyDatabaseConnection(apiRuntime.database);
