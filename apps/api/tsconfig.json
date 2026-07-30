@@ -1,11 +1,14 @@
 {
   "extends": "../../packages/config/tsconfig.base.json",
   "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
     "paths": {
       "@bizziemoney/database": ["../../packages/database/src/index.ts"],
       "@bizziemoney/shared": ["../../packages/shared/src/index.ts"],
       "@bizziemoney/storage": ["../../packages/storage/src/index.ts"]
     },
+    "strict": true,
+    "strictNullChecks": true,
     "types": ["node"]
   },
   "include": ["src/**/*.ts"]
