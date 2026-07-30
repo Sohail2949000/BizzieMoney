@@ -184,11 +184,9 @@ async function startLocalServer(): Promise<void> {
   });
 }
 
-if (process.env.VERCEL !== '1') {
-  startLocalServer().catch((error: unknown) => {
-    const message =
-      error instanceof Error ? error.message : 'Unknown startup error';
-    console.error(`API startup failed: ${message}`);
-    process.exitCode = 1;
-  });
-}
+startLocalServer().catch((error: unknown) => {
+  const message =
+    error instanceof Error ? error.message : 'Unknown startup error';
+  console.error(`API startup failed: ${message}`);
+  process.exitCode = 1;
+});
