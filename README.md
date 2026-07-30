@@ -186,13 +186,32 @@ Expected file: `docs/screenshots/mobile.png`
 ## Demo
 
 - Demo URL: [bizzie-money-demo.vercel.app](https://bizzie-money-demo.vercel.app)
-- Test account: Not published
+- Email: `demo@bizziemoney.com`
+- Password: `admin11223344`
 
-The hosted instance demonstrates the deployment and owner-account flow; it is
-not an anonymous shared sandbox and does not publish reusable credentials.
+The hosted instance uses a disposable shared account and seeded financial data
+for demonstrations. Anyone with these published credentials can view, change,
+or delete its contents, and the data may be reset without notice.
 **Never enter real financial, identity, password, receipt, or other sensitive
-information into a public demo.** A disposable test account should be used for
-public demonstrations, and its data may be reset without notice.
+information into the public demo.**
+
+Maintainers can populate or reapply the deterministic 2026 multi-currency
+dataset with:
+
+```bash
+BIZZIEMONEY_DEMO_SEED_CONFIRM=SEED_PUBLIC_DEMO_DATA \
+DEMO_OWNER_EMAIL=demo@bizziemoney.com \
+DEMO_YEAR=2026 \
+DATABASE_URL='postgresql://...' \
+pnpm demo:seed
+```
+
+The seed is explicit and never runs during migrations or normal application
+startup. It adds the same varied monthly volumes to expenses, subscriptions,
+and loans/debts: January 25, February 20, March 30, April 10, May 24, June 18,
+July 28, August 22, September 26, October 16, November 20, and December 30.
+Records rotate through USD, SAR, EUR, GBP, AED, and JPY, with varied categories,
+payment methods, statuses, directions, and payment histories.
 
 ## Requirements
 
