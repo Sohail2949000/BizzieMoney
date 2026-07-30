@@ -152,6 +152,19 @@ function parseExpenseWrite(input: unknown): ExpenseWriteInput {
   };
 }
 
+function parseCategoryCreate(input: unknown): {
+  color: string;
+  icon: string;
+  name: string;
+} {
+  const parsed = categoryCreateSchema.parse(input);
+  return {
+    color: parsed.color,
+    icon: parsed.icon,
+    name: parsed.name,
+  };
+}
+
 export function registerExpenseRoutes(
   server: FastifyInstance,
   {
@@ -173,7 +186,7 @@ export function registerExpenseRoutes(
   server.post('/api/expense-categories', async (request, reply) => {
     const session = await requireSession(request, authService);
     requireCsrf(request, session, authService);
-    const input = categoryCreateSchema.parse(request.body);
+    const input = parseCategoryCreate(request.body);
     return reply
       .code(201)
       .send(await service.createCategory(session.ownerId, input));
