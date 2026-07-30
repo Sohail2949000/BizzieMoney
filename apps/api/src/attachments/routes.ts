@@ -4,7 +4,10 @@ import { z } from 'zod';
 import { requireCsrf, requireSession } from '../auth/routes';
 import type { AuthServiceContract } from '../auth/types';
 import { AppError } from '../errors';
-import type { AttachmentServiceContract } from './types';
+import type {
+  AttachmentServiceContract,
+  AttachmentStorageConfigInput,
+} from './types';
 
 const idParamsSchema = z.object({ attachmentId: z.uuid() });
 const expenseParamsSchema = z.object({ expenseId: z.uuid() });
@@ -87,6 +90,19 @@ const storageConfigSchema = z
     }
   });
 
+function parseStorageConfig(input: unknown): AttachmentStorageConfigInput {
+  const parsed = storageConfigSchema.parse(input);
+  return {
+    provider: parsed.provider,
+    s3: parsed.s3
+      ? {
+          ...parsed.s3,
+          endpoint: parsed.s3.endpoint ?? null,
+        }
+      : null,
+  };
+}
+
 function contentDisposition(
   disposition: 'attachment' | 'inline',
   displayName: string,
@@ -118,7 +134,7 @@ export function registerAttachmentRoutes(
     return reply.send(
       await service.testStorage(
         session.ownerId,
-        storageConfigSchema.parse(request.body),
+        parseStorageConfig(request.body),
       ),
     );
   });
@@ -130,7 +146,7 @@ export function registerAttachmentRoutes(
       configuration: await service.saveStorageConfig(
         session.ownerId,
         session.id,
-        storageConfigSchema.parse(request.body),
+        parseStorageConfig(request.body),
       ),
     };
   });
