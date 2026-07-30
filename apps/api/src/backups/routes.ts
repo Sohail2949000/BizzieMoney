@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { requireCsrf, requireSession } from '../auth/routes';
 import type { AuthServiceContract } from '../auth/types';
-import type { BackupServiceContract } from './types';
+import type { BackupConfigInput, BackupServiceContract } from './types';
 
 const uuidSchema = z.uuid();
 const nullableUrl = z
@@ -80,6 +80,21 @@ const configSchema = z
     }
   });
 
+function parseBackupConfig(input: unknown): BackupConfigInput {
+  const parsed = configSchema.parse(input);
+  return {
+    ...parsed,
+    dayOfMonth: parsed.dayOfMonth ?? null,
+    dayOfWeek: parsed.dayOfWeek ?? null,
+    s3: parsed.s3
+      ? {
+          ...parsed.s3,
+          endpoint: parsed.s3.endpoint ?? null,
+        }
+      : null,
+  };
+}
+
 export function registerBackupRoutes(
   server: FastifyInstance,
   {
@@ -106,7 +121,7 @@ export function registerBackupRoutes(
     return {
       config: await service.saveConfig(
         session.ownerId,
-        configSchema.parse(request.body),
+        parseBackupConfig(request.body),
       ),
     };
   });
@@ -116,7 +131,7 @@ export function registerBackupRoutes(
     requireCsrf(request, session, authService);
     return service.testDestination(
       session.ownerId,
-      configSchema.parse(request.body),
+      parseBackupConfig(request.body),
     );
   });
 
