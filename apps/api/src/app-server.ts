@@ -164,7 +164,18 @@ export function buildServer(
         status: 'ready',
         version: apiInfo.version,
       };
-    } catch {
+    } catch (error) {
+      const databaseError =
+        error && typeof error === 'object'
+          ? {
+              code:
+                'code' in error && typeof error.code === 'string'
+                  ? error.code
+                  : undefined,
+              name: error instanceof Error ? error.name : 'UnknownError',
+            }
+          : { name: 'UnknownError' };
+      server.log.error({ databaseError }, 'Database readiness check failed');
       return reply.code(503).send({
         database: 'unavailable',
         status: 'not-ready',
