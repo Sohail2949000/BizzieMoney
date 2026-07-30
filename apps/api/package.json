@@ -12,7 +12,8 @@
     "dev": "tsx watch src/index.ts",
     "owner:recover": "node dist/recover-owner.js",
     "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "vercel-build": "pnpm --filter @bizziemoney/shared --filter @bizziemoney/database --filter @bizziemoney/storage build && pnpm run build"
   },
   "dependencies": {
     "@bizziemoney/database": "workspace:*",
