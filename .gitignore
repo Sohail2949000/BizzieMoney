@@ -34,6 +34,8 @@ postgres-data/
 *.log
 .tmp-*
 .cache/
+.vercel/
+**/.vercel/
 tmp/
 temp/
 
