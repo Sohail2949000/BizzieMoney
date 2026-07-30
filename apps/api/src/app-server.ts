@@ -47,28 +47,31 @@ export interface BuildServerOptions {
   subscriptionService: SubscriptionServiceContract;
 }
 
-export function buildServer({
-  appOrigin,
-  appOrigins = [appOrigin],
-  attachmentService,
-  authService,
-  backupService,
-  contentSecurityPolicy = false,
-  cookieSecure,
-  dataService,
-  debtService,
-  expenseService,
-  logger = true,
-  maxUploadSizeBytes,
-  preferenceService,
-  readinessCheck,
-  subscriptionService,
-}: BuildServerOptions): FastifyInstance {
+export function buildServer(
+  {
+    appOrigin,
+    appOrigins = [appOrigin],
+    attachmentService,
+    authService,
+    backupService,
+    contentSecurityPolicy = false,
+    cookieSecure,
+    dataService,
+    debtService,
+    expenseService,
+    logger = true,
+    maxUploadSizeBytes,
+    preferenceService,
+    readinessCheck,
+    subscriptionService,
+  }: BuildServerOptions,
+  fastifyFactory: typeof Fastify = Fastify,
+): FastifyInstance {
   const allowedOrigins = [...new Set([appOrigin, ...appOrigins])];
   const allowedOriginSet = new Set(allowedOrigins);
   const resolveCookieSecure =
     typeof cookieSecure === 'function' ? cookieSecure : () => cookieSecure;
-  const server = Fastify({
+  const server = fastifyFactory({
     logController: new LogController({
       disableRequestLogging: false,
       requestIdLogLabel: 'requestId',

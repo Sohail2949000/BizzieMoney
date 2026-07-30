@@ -2,6 +2,7 @@ import {
   createDatabase,
   verifyDatabaseConnection,
 } from '@bizziemoney/database';
+import Fastify from 'fastify';
 import {
   attachmentStorageConfigFromPersisted,
   readBackupStorageBaseConfig,
@@ -128,28 +129,31 @@ async function main(): Promise<void> {
     new PostgresSubscriptionStore(database),
   );
   const appOrigin = new URL(config.APP_URL).origin;
-  const server = buildServer({
-    appOrigin,
-    appOrigins: config.APP_ALLOWED_ORIGINS,
-    attachmentService,
-    authService,
-    backupService,
-    contentSecurityPolicy: config.NODE_ENV === 'production',
-    cookieSecure: (request) =>
-      requestUsesSecureCookies(
-        request,
-        config.APP_ALLOWED_ORIGINS,
-        config.NODE_ENV === 'production' &&
-          new URL(config.APP_URL).protocol === 'https:',
-      ),
-    dataService,
-    debtService,
-    expenseService,
-    maxUploadSizeBytes: config.MAX_UPLOAD_SIZE_MB * 1_048_576,
-    preferenceService,
-    readinessCheck: () => verifyDatabaseConnection(database),
-    subscriptionService,
-  });
+  const server = buildServer(
+    {
+      appOrigin,
+      appOrigins: config.APP_ALLOWED_ORIGINS,
+      attachmentService,
+      authService,
+      backupService,
+      contentSecurityPolicy: config.NODE_ENV === 'production',
+      cookieSecure: (request) =>
+        requestUsesSecureCookies(
+          request,
+          config.APP_ALLOWED_ORIGINS,
+          config.NODE_ENV === 'production' &&
+            new URL(config.APP_URL).protocol === 'https:',
+        ),
+      dataService,
+      debtService,
+      expenseService,
+      maxUploadSizeBytes: config.MAX_UPLOAD_SIZE_MB * 1_048_576,
+      preferenceService,
+      readinessCheck: () => verifyDatabaseConnection(database),
+      subscriptionService,
+    },
+    Fastify,
+  );
 
   await verifyDatabaseConnection(database);
   server.log.info('PostgreSQL connection verified');
