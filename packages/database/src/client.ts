@@ -10,6 +10,7 @@ types.setTypeParser(POSTGRES_DATE_OID, (value) => value);
 
 export interface DatabaseOptions {
   applicationName: string;
+  connectionTimeoutMs?: number;
   connectionString: string;
   maxConnections?: number;
   queryTimeoutMs?: number;
@@ -19,6 +20,7 @@ export type BizzieMoneyDatabase = Kysely<DatabaseSchema>;
 
 export function createDatabase({
   applicationName,
+  connectionTimeoutMs = 15_000,
   connectionString,
   maxConnections = 10,
   queryTimeoutMs = 15_000,
@@ -26,7 +28,7 @@ export function createDatabase({
   const pool = new Pool({
     application_name: applicationName,
     connectionString,
-    connectionTimeoutMillis: 5_000,
+    connectionTimeoutMillis: connectionTimeoutMs,
     idleTimeoutMillis: 30_000,
     max: maxConnections,
     statement_timeout: queryTimeoutMs,
