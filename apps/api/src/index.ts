@@ -162,31 +162,6 @@ function createApiRuntime() {
   return { config, database, server };
 }
 
-const runtime = createApiRuntime();
+export const apiRuntime = createApiRuntime();
 
-export default runtime.server;
-
-async function startLocalServer(): Promise<void> {
-  await verifyDatabaseConnection(runtime.database);
-  runtime.server.log.info('PostgreSQL connection verified');
-
-  const shutdown = async (signal: NodeJS.Signals): Promise<void> => {
-    runtime.server.log.info({ signal }, 'Shutting down');
-    await runtime.server.close();
-  };
-
-  process.once('SIGINT', () => void shutdown('SIGINT'));
-  process.once('SIGTERM', () => void shutdown('SIGTERM'));
-
-  await runtime.server.listen({
-    host: runtime.config.API_HOST,
-    port: runtime.config.API_PORT,
-  });
-}
-
-startLocalServer().catch((error: unknown) => {
-  const message =
-    error instanceof Error ? error.message : 'Unknown startup error';
-  console.error(`API startup failed: ${message}`);
-  process.exitCode = 1;
-});
+export default apiRuntime.server;
