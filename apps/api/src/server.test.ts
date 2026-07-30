@@ -947,6 +947,24 @@ describe('Phase 1 API boundary', () => {
       payload: { provider: 'local', s3: null },
       url: '/api/attachment-storage/test',
     });
+    const testedAwsStorage = await server.inject({
+      cookies: { bm_csrf: 'csrf-token', bm_session: 'session-token' },
+      headers: {
+        origin: 'http://localhost:5173',
+        'x-bm-csrf': 'csrf-token',
+      },
+      method: 'POST',
+      payload: {
+        provider: 's3',
+        s3: {
+          bucket: 'bizziemoney',
+          forcePathStyle: false,
+          prefix: 'bizziemoney',
+          region: 'us-east-1',
+        },
+      },
+      url: '/api/attachment-storage/test',
+    });
 
     expect(anonymous.statusCode).toBe(401);
     expect(missingCsrf.statusCode).toBe(403);
@@ -958,6 +976,7 @@ describe('Phase 1 API boundary', () => {
     expect(status.body).not.toContain('/data/attachments');
     expect(saved.statusCode).toBe(200);
     expect(tested.statusCode).toBe(200);
+    expect(testedAwsStorage.statusCode).toBe(200);
     expect(saveStorageConfig).toHaveBeenCalledWith(
       owner.id,
       authenticatedSession.id,
@@ -966,6 +985,16 @@ describe('Phase 1 API boundary', () => {
     expect(testStorage).toHaveBeenCalledWith(owner.id, {
       provider: 'local',
       s3: null,
+    });
+    expect(testStorage).toHaveBeenCalledWith(owner.id, {
+      provider: 's3',
+      s3: {
+        bucket: 'bizziemoney',
+        endpoint: null,
+        forcePathStyle: false,
+        prefix: 'bizziemoney',
+        region: 'us-east-1',
+      },
     });
   });
 

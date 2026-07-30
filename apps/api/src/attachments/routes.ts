@@ -16,6 +16,7 @@ const contentQuerySchema = z.object({
 });
 const endpointSchema = z
   .union([z.string().trim().max(2048), z.null()])
+  .default(null)
   .transform((value, context) => {
     if (!value) return null;
     try {
