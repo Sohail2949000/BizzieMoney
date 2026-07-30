@@ -4,11 +4,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/Sohail2949000/BizzieMoney/actions/workflows/ci.yml/badge.svg)](https://github.com/Sohail2949000/BizzieMoney/actions/workflows/ci.yml)
+[![Docker publish](https://github.com/Sohail2949000/BizzieMoney/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Sohail2949000/BizzieMoney/actions/workflows/docker-publish.yml)
 [![Latest release](https://img.shields.io/github/v/release/Sohail2949000/BizzieMoney)](https://github.com/Sohail2949000/BizzieMoney/releases)
-
-> **Docker Hub publishing is not configured yet.** Replace
-> `[DOCKERHUB_USERNAME]` only after confirming the Docker Hub account and
-> repository. The placeholder is intentionally not guessed.
+[![Docker image](https://img.shields.io/docker/v/sohail29490/bizziemoney?sort=semver&label=Docker)](https://hub.docker.com/r/sohail29490/bizziemoney)
+[![Docker pulls](https://img.shields.io/docker/pulls/sohail29490/bizziemoney)](https://hub.docker.com/r/sohail29490/bizziemoney)
 
 ## Overview
 
@@ -248,15 +247,15 @@ a supported installation.
 The release workflow publishes these tags from one Docker Hub repository:
 
 ```bash
-docker pull [DOCKERHUB_USERNAME]/bizziemoney:latest
-docker pull [DOCKERHUB_USERNAME]/bizziemoney:latest-api
-docker pull [DOCKERHUB_USERNAME]/bizziemoney:latest-worker
+docker pull sohail29490/bizziemoney:latest
+docker pull sohail29490/bizziemoney:latest-api
+docker pull sohail29490/bizziemoney:latest-worker
 ```
 
 Set the image repository in `.env`, then use Compose:
 
 ```dotenv
-BIZZIEMONEY_IMAGE=[DOCKERHUB_USERNAME]/bizziemoney
+BIZZIEMONEY_IMAGE=sohail29490/bizziemoney
 BIZZIEMONEY_VERSION=latest
 ```
 
@@ -265,8 +264,7 @@ docker compose pull
 docker compose up -d
 ```
 
-Versioned releases use `1.0.0`, `1.0.0-api`, and `1.0.0-worker` tags. Do not
-assume an image exists until the Docker publishing workflow has succeeded.
+Versioned releases use `1.0.0`, `1.0.0-api`, and `1.0.0-worker` tags.
 
 ### 3. Installation from source
 
