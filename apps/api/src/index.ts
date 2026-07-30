@@ -33,7 +33,7 @@ import { requestUsesSecureCookies } from './request-security.js';
 import { PostgresSubscriptionStore } from './subscriptions/store.js';
 import { buildServer } from './app-server.js';
 
-async function main(): Promise<void> {
+function createApiRuntime() {
   const config = readApiConfig();
   const attachmentStorageBase = readAttachmentStorageConfig();
   const storageSecretBox = new SecretBox(
@@ -155,27 +155,40 @@ async function main(): Promise<void> {
     Fastify,
   );
 
-  await verifyDatabaseConnection(database);
-  server.log.info('PostgreSQL connection verified');
-
   server.addHook('onClose', async () => {
     await database.destroy();
   });
 
+  return { config, database, server };
+}
+
+const runtime = createApiRuntime();
+
+export default runtime.server;
+
+async function startLocalServer(): Promise<void> {
+  await verifyDatabaseConnection(runtime.database);
+  runtime.server.log.info('PostgreSQL connection verified');
+
   const shutdown = async (signal: NodeJS.Signals): Promise<void> => {
-    server.log.info({ signal }, 'Shutting down');
-    await server.close();
+    runtime.server.log.info({ signal }, 'Shutting down');
+    await runtime.server.close();
   };
 
   process.once('SIGINT', () => void shutdown('SIGINT'));
   process.once('SIGTERM', () => void shutdown('SIGTERM'));
 
-  await server.listen({ host: config.API_HOST, port: config.API_PORT });
+  await runtime.server.listen({
+    host: runtime.config.API_HOST,
+    port: runtime.config.API_PORT,
+  });
 }
 
-main().catch((error: unknown) => {
-  const message =
-    error instanceof Error ? error.message : 'Unknown startup error';
-  console.error(`API startup failed: ${message}`);
-  process.exitCode = 1;
-});
+if (process.env.VERCEL !== '1') {
+  startLocalServer().catch((error: unknown) => {
+    const message =
+      error instanceof Error ? error.message : 'Unknown startup error';
+    console.error(`API startup failed: ${message}`);
+    process.exitCode = 1;
+  });
+}
