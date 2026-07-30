@@ -186,7 +186,8 @@ Expected file: `docs/screenshots/mobile.png`
 ## Demo
 
 - Demo URL: [bizzie-money-demo.vercel.app](https://bizzie-money-demo.vercel.app)
-- Test account: Not published
+- Test account: demo@bizziemoney.com, admin11223344
+- 
 
 The hosted instance demonstrates the deployment and owner-account flow; it is
 not an anonymous shared sandbox and does not publish reusable credentials.
