@@ -7,7 +7,7 @@ import {
   type Transaction,
 } from '@bizziemoney/database';
 
-import { attachmentObjectKeys } from '../attachments/thumbnail-keys';
+import { attachmentObjectKeys } from '../attachments/thumbnail-keys.js';
 import type {
   DebtCursor,
   DebtFilters,
@@ -21,7 +21,7 @@ import type {
   DebtSummary,
   DebtUpcomingResponse,
   DebtWriteInput,
-} from './types';
+} from './types.js';
 
 interface DebtRow {
   attachment_count: number;

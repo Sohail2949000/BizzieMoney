@@ -3,7 +3,7 @@ import { stdin, stdout } from 'node:process';
 
 import { createDatabase, sql } from '@bizziemoney/database';
 
-import { hashOwnerPassword } from './auth/service';
+import { hashOwnerPassword } from './auth/service.js';
 
 const CONFIRMATION = 'RESET_OWNER_PASSWORD';
 

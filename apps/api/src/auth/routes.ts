@@ -3,13 +3,13 @@ import { timingSafeEqual } from 'node:crypto';
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-import { AppError } from '../errors';
+import { AppError } from '../errors.js';
 import type {
   AuthenticatedSession,
   AuthServiceContract,
   AuthSuccess,
   ClientContext,
-} from './types';
+} from './types.js';
 
 export const SESSION_COOKIE_NAME = 'bm_session';
 export const CSRF_COOKIE_NAME = 'bm_csrf';

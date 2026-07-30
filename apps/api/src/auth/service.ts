@@ -7,8 +7,8 @@ import {
 
 import { hash, verify } from '@node-rs/argon2';
 
-import { AppError } from '../errors';
-import type { AuthStore } from './store';
+import { AppError } from '../errors.js';
+import type { AuthStore } from './store.js';
 import type {
   AuthenticatedSession,
   AuthServiceContract,
@@ -19,7 +19,7 @@ import type {
   PublicOwner,
   SessionSecrets,
   SessionSummary,
-} from './types';
+} from './types.js';
 
 const PASSWORD_HASH_OPTIONS = {
   algorithm: 2,

@@ -2,10 +2,10 @@ import { createHash, randomUUID } from 'node:crypto';
 
 import { z } from 'zod';
 
-import { AppError } from '../errors';
-import { ExpenseCsvError, previewExpenseCsv, validImportRows } from './csv';
-import { cursorValue } from './store';
-import type { ExpenseStore, PostgresExpenseStore } from './store';
+import { AppError } from '../errors.js';
+import { ExpenseCsvError, previewExpenseCsv, validImportRows } from './csv.js';
+import { cursorValue } from './store.js';
+import type { ExpenseStore, PostgresExpenseStore } from './store.js';
 import type {
   CategoryDeletionPreview,
   CategoryDeletionResult,
@@ -21,7 +21,7 @@ import type {
   ExpenseWriteInput,
   MoneyOption,
   PublicExpense,
-} from './types';
+} from './types.js';
 
 const cursorSchema = z.object({
   id: z.uuid(),

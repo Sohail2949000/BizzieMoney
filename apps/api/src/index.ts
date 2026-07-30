@@ -11,26 +11,26 @@ import {
   type PersistedAttachmentStorageConfig,
 } from '@bizziemoney/storage';
 
-import { readApiConfig } from './config';
-import { AttachmentService } from './attachments/service';
-import { createMalwareScanner } from './attachments/scanner';
-import { PostgresAttachmentStore } from './attachments/store';
-import { AuthService } from './auth/service';
-import { PostgresAuthStore } from './auth/store';
-import { BackupService } from './backups/service';
-import { PostgresBackupStore } from './backups/store';
-import { DebtService } from './debts/service';
-import { PostgresDebtStore } from './debts/store';
-import { DataService } from './data/service';
-import { PostgresDataStore } from './data/store';
-import { ExpenseService } from './expenses/service';
-import { PostgresExpenseStore } from './expenses/store';
-import { PreferenceService } from './preferences/service';
-import { PostgresPreferenceStore } from './preferences/store';
-import { SubscriptionService } from './subscriptions/service';
-import { requestUsesSecureCookies } from './request-security';
-import { PostgresSubscriptionStore } from './subscriptions/store';
-import { buildServer } from './server';
+import { readApiConfig } from './config.js';
+import { AttachmentService } from './attachments/service.js';
+import { createMalwareScanner } from './attachments/scanner.js';
+import { PostgresAttachmentStore } from './attachments/store.js';
+import { AuthService } from './auth/service.js';
+import { PostgresAuthStore } from './auth/store.js';
+import { BackupService } from './backups/service.js';
+import { PostgresBackupStore } from './backups/store.js';
+import { DebtService } from './debts/service.js';
+import { PostgresDebtStore } from './debts/store.js';
+import { DataService } from './data/service.js';
+import { PostgresDataStore } from './data/store.js';
+import { ExpenseService } from './expenses/service.js';
+import { PostgresExpenseStore } from './expenses/store.js';
+import { PreferenceService } from './preferences/service.js';
+import { PostgresPreferenceStore } from './preferences/store.js';
+import { SubscriptionService } from './subscriptions/service.js';
+import { requestUsesSecureCookies } from './request-security.js';
+import { PostgresSubscriptionStore } from './subscriptions/store.js';
+import { buildServer } from './server.js';
 
 async function main(): Promise<void> {
   const config = readApiConfig();

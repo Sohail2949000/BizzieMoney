@@ -3,9 +3,9 @@ import { createReadStream } from 'node:fs';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import type { DataServiceContract } from './types';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import type { DataServiceContract } from './types.js';
 
 const purgeSchema = z.object({
   confirmation: z.string().max(100),

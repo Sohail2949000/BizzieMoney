@@ -1,16 +1,19 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fileURLToPath } from 'node:url';
 
-import type { AuthenticatedSession, AuthServiceContract } from './auth/types';
-import type { AttachmentServiceContract } from './attachments/types';
-import type { BackupServiceContract } from './backups/types';
-import type { DebtServiceContract } from './debts/types';
-import type { DataServiceContract } from './data/types';
-import type { ExpenseServiceContract } from './expenses/types';
-import type { PreferenceServiceContract } from './preferences/types';
-import { requestUsesSecureCookies } from './request-security';
-import { buildServer, type BuildServerOptions } from './server';
-import type { SubscriptionServiceContract } from './subscriptions/types';
+import type {
+  AuthenticatedSession,
+  AuthServiceContract,
+} from './auth/types.js';
+import type { AttachmentServiceContract } from './attachments/types.js';
+import type { BackupServiceContract } from './backups/types.js';
+import type { DebtServiceContract } from './debts/types.js';
+import type { DataServiceContract } from './data/types.js';
+import type { ExpenseServiceContract } from './expenses/types.js';
+import type { PreferenceServiceContract } from './preferences/types.js';
+import { requestUsesSecureCookies } from './request-security.js';
+import { buildServer, type BuildServerOptions } from './server.js';
+import type { SubscriptionServiceContract } from './subscriptions/types.js';
 
 const owner = {
   displayName: 'Jamie',

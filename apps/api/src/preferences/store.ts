@@ -11,7 +11,7 @@ import {
   type NumberFormat,
 } from '@bizziemoney/shared';
 
-import type { PreferenceChanges, PreferenceRecord } from './types';
+import type { PreferenceChanges, PreferenceRecord } from './types.js';
 
 export interface PreferenceStore {
   get(ownerId: string): Promise<PreferenceRecord>;

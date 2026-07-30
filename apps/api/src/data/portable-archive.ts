@@ -7,7 +7,7 @@ import { createGzip } from 'node:zlib';
 
 import { storageFor, type StorageRegistry } from '@bizziemoney/storage';
 
-import type { PortableAttachmentSource } from './types';
+import type { PortableAttachmentSource } from './types.js';
 
 const TAR_BLOCK_SIZE = 512;
 

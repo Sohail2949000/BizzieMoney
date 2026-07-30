@@ -17,13 +17,13 @@ import {
   type StorageRegistry,
 } from '@bizziemoney/storage';
 
-import { AppError } from '../errors';
-import { DeferredMalwareScanner } from './scanner';
+import { AppError } from '../errors.js';
+import { DeferredMalwareScanner } from './scanner.js';
 import type {
   AttachmentStorageConfigRecord,
   AttachmentStore,
   PostgresAttachmentStore,
-} from './store';
+} from './store.js';
 import type {
   AttachmentContent,
   AttachmentRecord,
@@ -34,14 +34,14 @@ import type {
   MalwareScannerAdapter,
   PublicAttachment,
   PublicAttachmentStorageConfig,
-} from './types';
+} from './types.js';
 import {
   supportsAttachmentThumbnail,
   THUMBNAIL_MIME_TYPE,
   thumbnailObjectKey,
-} from './thumbnail-keys';
-import { generateThumbnail } from './thumbnail';
-import { stageAndValidateUpload, UploadValidationError } from './validation';
+} from './thumbnail-keys.js';
+import { generateThumbnail } from './thumbnail.js';
+import { stageAndValidateUpload, UploadValidationError } from './validation.js';
 
 const PREVIEW_MIME_TYPES = new Set([
   'application/pdf',

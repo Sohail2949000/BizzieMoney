@@ -7,8 +7,8 @@ import {
   type Transaction,
 } from '@bizziemoney/database';
 
-import { attachmentObjectKeys } from '../attachments/thumbnail-keys';
-import { nextBillingDate, reminderDate } from './schedule';
+import { attachmentObjectKeys } from '../attachments/thumbnail-keys.js';
+import { nextBillingDate, reminderDate } from './schedule.js';
 import type {
   SubscriptionCursor,
   SubscriptionFilters,
@@ -20,7 +20,7 @@ import type {
   SubscriptionSort,
   SubscriptionUpcomingResponse,
   SubscriptionWriteInput,
-} from './types';
+} from './types.js';
 
 interface SubscriptionRow {
   amount: string;

@@ -3,9 +3,9 @@ import { Readable } from 'node:stream';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import type { ExpenseServiceContract, ExpenseWriteInput } from './types';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import type { ExpenseServiceContract, ExpenseWriteInput } from './types.js';
 
 const uuidSchema = z.string().uuid();
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a valid date.');

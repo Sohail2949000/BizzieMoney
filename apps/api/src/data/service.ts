@@ -8,8 +8,8 @@ import { finished } from 'node:stream/promises';
 
 import type { StorageRegistry } from '@bizziemoney/storage';
 
-import { AppError } from '../errors';
-import { writePortableArchive } from './portable-archive';
+import { AppError } from '../errors.js';
+import { writePortableArchive } from './portable-archive.js';
 import {
   FINANCIAL_PURGE_CONFIRMATION,
   type DataServiceContract,
@@ -17,7 +17,7 @@ import {
   type FinancialPurgeResult,
   type PortableAttachmentSource,
   type PortableExport,
-} from './types';
+} from './types.js';
 
 const readme = `BizzieMoney portable data export
 ==================================

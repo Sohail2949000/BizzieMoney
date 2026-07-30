@@ -5,7 +5,7 @@ import type {
   ExpenseImportPreview,
   ExpenseImportRow,
   ExpenseOptions,
-} from './types';
+} from './types.js';
 
 const MAX_IMPORT_ROWS = 1_000;
 const MAX_IMPORT_CHARACTERS = 2_000_000;

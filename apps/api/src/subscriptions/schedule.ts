@@ -1,4 +1,4 @@
-import type { BillingFrequency } from './types';
+import type { BillingFrequency } from './types.js';
 
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 

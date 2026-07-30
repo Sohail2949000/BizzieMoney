@@ -16,10 +16,10 @@ import {
 } from '@bizziemoney/storage';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import { AuthService } from '../auth/service';
-import { PostgresAuthStore } from '../auth/store';
-import { DataService } from './service';
-import { PostgresDataStore } from './store';
+import { AuthService } from '../auth/service.js';
+import { PostgresAuthStore } from '../auth/store.js';
+import { DataService } from './service.js';
+import { PostgresDataStore } from './store.js';
 
 const baseConnectionString = process.env.TEST_DATABASE_URL;
 const integrationDescribe = baseConnectionString ? describe : describe.skip;

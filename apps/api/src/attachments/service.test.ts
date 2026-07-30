@@ -12,9 +12,9 @@ import {
   type StorageRegistry,
 } from '@bizziemoney/storage';
 
-import { AttachmentService } from './service';
-import type { AttachmentStore } from './store';
-import type { AttachmentRecord, MalwareScannerAdapter } from './types';
+import { AttachmentService } from './service.js';
+import type { AttachmentStore } from './store.js';
+import type { AttachmentRecord, MalwareScannerAdapter } from './types.js';
 
 const ownerId = '00000000-0000-4000-8000-000000000001';
 const expenseId = '00000000-0000-4000-8000-000000000002';

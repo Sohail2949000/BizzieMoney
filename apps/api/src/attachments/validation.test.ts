@@ -2,7 +2,7 @@ import { Readable } from 'node:stream';
 
 import { describe, expect, it } from 'vitest';
 
-import { stageAndValidateUpload } from './validation';
+import { stageAndValidateUpload } from './validation.js';
 
 const allowed = new Set([
   'application/pdf',

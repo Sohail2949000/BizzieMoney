@@ -4,9 +4,9 @@ import { z } from 'zod';
 
 import { currentDateInTimeZone } from '@bizziemoney/shared';
 
-import { AppError } from '../errors';
-import { debtCursorValue } from './store';
-import type { DebtStore, PostgresDebtStore } from './store';
+import { AppError } from '../errors.js';
+import { debtCursorValue } from './store.js';
+import type { DebtStore, PostgresDebtStore } from './store.js';
 import type {
   DebtFilters,
   DebtListResponse,
@@ -22,7 +22,7 @@ import type {
   DebtWriteInput,
   PublicDebt,
   PublicDebtPayment,
-} from './types';
+} from './types.js';
 
 const debtCursorSchema = z.object({
   id: z.uuid(),

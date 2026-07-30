@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { readApiConfig } from './config';
+import { readApiConfig } from './config.js';
 
 const requiredEnvironment = {
   APP_URL: 'http://localhost:5173',

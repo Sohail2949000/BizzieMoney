@@ -1,7 +1,7 @@
 import { createReadStream } from 'node:fs';
 import { createConnection, type Socket } from 'node:net';
 
-import type { MalwareScannerAdapter, MalwareScanResult } from './types';
+import type { MalwareScannerAdapter, MalwareScanResult } from './types.js';
 
 const MAX_RESPONSE_BYTES = 8_192;
 const STREAM_CHUNK_BYTES = 64 * 1_024;

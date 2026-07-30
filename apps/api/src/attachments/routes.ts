@@ -1,13 +1,13 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import { AppError } from '../errors';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import { AppError } from '../errors.js';
 import type {
   AttachmentServiceContract,
   AttachmentStorageConfigInput,
-} from './types';
+} from './types.js';
 
 const idParamsSchema = z.object({ attachmentId: z.uuid() });
 const expenseParamsSchema = z.object({ expenseId: z.uuid() });

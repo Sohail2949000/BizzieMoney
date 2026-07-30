@@ -13,14 +13,14 @@ import {
 import { createStorageRegistry } from '@bizziemoney/storage';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import { AttachmentService } from '../attachments/service';
-import { PostgresAttachmentStore } from '../attachments/store';
-import { AuthService } from '../auth/service';
-import { PostgresAuthStore } from '../auth/store';
-import { ExpenseService } from '../expenses/service';
-import { PostgresExpenseStore } from '../expenses/store';
-import { SubscriptionService } from './service';
-import { PostgresSubscriptionStore } from './store';
+import { AttachmentService } from '../attachments/service.js';
+import { PostgresAttachmentStore } from '../attachments/store.js';
+import { AuthService } from '../auth/service.js';
+import { PostgresAuthStore } from '../auth/store.js';
+import { ExpenseService } from '../expenses/service.js';
+import { PostgresExpenseStore } from '../expenses/store.js';
+import { SubscriptionService } from './service.js';
+import { PostgresSubscriptionStore } from './store.js';
 
 const baseConnectionString = process.env.TEST_DATABASE_URL;
 const integrationDescribe = baseConnectionString ? describe : describe.skip;

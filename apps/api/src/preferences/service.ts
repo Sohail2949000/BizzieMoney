@@ -1,11 +1,11 @@
 import type { OwnerPreferences } from '@bizziemoney/shared';
 
-import type { PreferenceStore } from './store';
+import type { PreferenceStore } from './store.js';
 import type {
   PreferenceChanges,
   PreferenceRecord,
   PreferenceServiceContract,
-} from './types';
+} from './types.js';
 
 function toPublic(record: PreferenceRecord): OwnerPreferences {
   return {

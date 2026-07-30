@@ -6,14 +6,14 @@ import {
 } from '@bizziemoney/storage';
 import { nextBackupRun } from '@bizziemoney/shared';
 
-import { AppError } from '../errors';
+import { AppError } from '../errors.js';
 import type {
   BackupArtifactRecord,
   BackupConfigRecord,
   BackupJobRecord,
   BackupStore,
   RestorePreviewRecord,
-} from './store';
+} from './store.js';
 import type {
   BackupArtifactSummary,
   BackupConfigInput,
@@ -24,7 +24,7 @@ import type {
   PublicBackupConfig,
   RestorePreview,
   RestorePreviewSummary,
-} from './types';
+} from './types.js';
 
 interface StoredS3Credentials {
   accessKeyId: string;

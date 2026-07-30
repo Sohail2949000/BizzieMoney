@@ -1,16 +1,16 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import { isCalendarDate } from './schedule';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import { isCalendarDate } from './schedule.js';
 import {
   billingFrequencies,
   subscriptionSorts,
   subscriptionStatuses,
   type SubscriptionServiceContract,
   type SubscriptionWriteInput,
-} from './types';
+} from './types.js';
 
 const uuidSchema = z.uuid();
 const idempotencySchema = z.uuid();

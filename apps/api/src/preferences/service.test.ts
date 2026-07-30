@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { PreferenceStore } from './store';
-import { PreferenceService } from './service';
-import type { PreferenceRecord } from './types';
+import type { PreferenceStore } from './store.js';
+import { PreferenceService } from './service.js';
+import type { PreferenceRecord } from './types.js';
 
 const now = new Date('2026-07-28T10:00:00.000Z');
 const record: PreferenceRecord = {

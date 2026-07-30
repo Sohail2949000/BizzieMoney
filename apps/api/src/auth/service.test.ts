@@ -1,9 +1,9 @@
 import { hash, verify } from '@node-rs/argon2';
 import { describe, expect, it, vi } from 'vitest';
 
-import { AuthService } from './service';
-import type { AuthStore } from './store';
-import type { NewOwnerInput, NewSessionInput } from './types';
+import { AuthService } from './service.js';
+import type { AuthStore } from './store.js';
+import type { NewOwnerInput, NewSessionInput } from './types.js';
 
 function createStore(): AuthStore {
   return {

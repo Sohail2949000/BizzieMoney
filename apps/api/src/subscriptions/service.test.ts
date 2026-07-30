@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { SubscriptionService } from './service';
-import type { SubscriptionStore } from './store';
-import type { SubscriptionPaymentRecord, SubscriptionRecord } from './types';
+import { SubscriptionService } from './service.js';
+import type { SubscriptionStore } from './store.js';
+import type { SubscriptionPaymentRecord, SubscriptionRecord } from './types.js';
 
 const ownerId = '00000000-0000-4000-8000-000000000001';
 const sessionId = '00000000-0000-4000-8000-000000000002';

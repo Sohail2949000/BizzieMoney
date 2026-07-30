@@ -1,9 +1,13 @@
 import { SecretBox } from '@bizziemoney/storage';
 import { describe, expect, it, vi } from 'vitest';
 
-import { BackupService } from './service';
-import type { BackupConfigRecord, BackupJobRecord, BackupStore } from './store';
-import type { BackupConfigInput } from './types';
+import { BackupService } from './service.js';
+import type {
+  BackupConfigRecord,
+  BackupJobRecord,
+  BackupStore,
+} from './store.js';
+import type { BackupConfigInput } from './types.js';
 
 const now = new Date('2026-07-28T10:00:00.000Z');
 

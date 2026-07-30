@@ -8,9 +8,9 @@ import {
   isSupportedTimeZone,
 } from '@bizziemoney/shared';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import type { PreferenceServiceContract } from './types';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import type { PreferenceServiceContract } from './types.js';
 
 const preferenceChangesSchema = z
   .object({

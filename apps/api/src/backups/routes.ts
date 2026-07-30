@@ -1,9 +1,9 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
-import type { BackupConfigInput, BackupServiceContract } from './types';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
+import type { BackupConfigInput, BackupServiceContract } from './types.js';
 
 const uuidSchema = z.uuid();
 const nullableUrl = z

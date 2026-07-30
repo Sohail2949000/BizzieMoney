@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ExpenseCsvError, previewExpenseCsv, validImportRows } from './csv';
+import { ExpenseCsvError, previewExpenseCsv, validImportRows } from './csv.js';
 
 const context = {
   defaultCurrency: 'USD',

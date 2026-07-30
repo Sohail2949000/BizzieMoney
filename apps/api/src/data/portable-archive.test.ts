@@ -8,7 +8,7 @@ import { Readable } from 'node:stream';
 import type { AttachmentStorage, StorageRegistry } from '@bizziemoney/storage';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createTarHeader, writePortableArchive } from './portable-archive';
+import { createTarHeader, writePortableArchive } from './portable-archive.js';
 
 const temporaryDirectories: string[] = [];
 

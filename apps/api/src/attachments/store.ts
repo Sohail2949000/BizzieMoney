@@ -10,8 +10,8 @@ import type {
   AttachmentEntityType,
   AttachmentRecord,
   CreateAttachmentStoreInput,
-} from './types';
-import { attachmentObjectKeys } from './thumbnail-keys';
+} from './types.js';
+import { attachmentObjectKeys } from './thumbnail-keys.js';
 
 interface AttachmentRow {
   checksum_sha256: string;

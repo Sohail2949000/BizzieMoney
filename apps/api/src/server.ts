@@ -11,23 +11,23 @@ import { z } from 'zod';
 
 import { apiInfo } from '@bizziemoney/shared';
 
-import { registerAttachmentRoutes } from './attachments/routes';
-import type { AttachmentServiceContract } from './attachments/types';
-import { registerAuthRoutes } from './auth/routes';
-import type { AuthServiceContract } from './auth/types';
-import { registerBackupRoutes } from './backups/routes';
-import type { BackupServiceContract } from './backups/types';
-import { registerDebtRoutes } from './debts/routes';
-import type { DebtServiceContract } from './debts/types';
-import { registerDataRoutes } from './data/routes';
-import type { DataServiceContract } from './data/types';
-import { AppError } from './errors';
-import { registerExpenseRoutes } from './expenses/routes';
-import type { ExpenseServiceContract } from './expenses/types';
-import { registerPreferenceRoutes } from './preferences/routes';
-import type { PreferenceServiceContract } from './preferences/types';
-import { registerSubscriptionRoutes } from './subscriptions/routes';
-import type { SubscriptionServiceContract } from './subscriptions/types';
+import { registerAttachmentRoutes } from './attachments/routes.js';
+import type { AttachmentServiceContract } from './attachments/types.js';
+import { registerAuthRoutes } from './auth/routes.js';
+import type { AuthServiceContract } from './auth/types.js';
+import { registerBackupRoutes } from './backups/routes.js';
+import type { BackupServiceContract } from './backups/types.js';
+import { registerDebtRoutes } from './debts/routes.js';
+import type { DebtServiceContract } from './debts/types.js';
+import { registerDataRoutes } from './data/routes.js';
+import type { DataServiceContract } from './data/types.js';
+import { AppError } from './errors.js';
+import { registerExpenseRoutes } from './expenses/routes.js';
+import type { ExpenseServiceContract } from './expenses/types.js';
+import { registerPreferenceRoutes } from './preferences/routes.js';
+import type { PreferenceServiceContract } from './preferences/types.js';
+import { registerSubscriptionRoutes } from './subscriptions/routes.js';
+import type { SubscriptionServiceContract } from './subscriptions/types.js';
 
 export interface BuildServerOptions {
   appOrigin: string;

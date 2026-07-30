@@ -14,7 +14,7 @@ import type {
   SessionRecord,
   SessionRevokeReason,
   SessionSummary,
-} from './types';
+} from './types.js';
 
 const LOGIN_WINDOW_MS = 15 * 60 * 1_000;
 const MAX_LOGIN_ATTEMPTS = 5;

@@ -7,7 +7,7 @@ import {
   type Transaction,
 } from '@bizziemoney/database';
 
-import { AppError } from '../errors';
+import { AppError } from '../errors.js';
 import {
   type DataStore,
   type FinancialPurgeCounts,
@@ -16,7 +16,7 @@ import {
   type PortableSnapshotResult,
   type PortableSnapshotWriters,
   type PurgeStoreInput,
-} from './types';
+} from './types.js';
 
 interface JsonRow {
   data: Record<string, unknown>;

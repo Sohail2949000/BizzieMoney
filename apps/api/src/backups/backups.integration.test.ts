@@ -9,10 +9,10 @@ import {
 import { SecretBox } from '@bizziemoney/storage';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import { AuthService } from '../auth/service';
-import { PostgresAuthStore } from '../auth/store';
-import { BackupService } from './service';
-import { PostgresBackupStore } from './store';
+import { AuthService } from '../auth/service.js';
+import { PostgresAuthStore } from '../auth/store.js';
+import { BackupService } from './service.js';
+import { PostgresBackupStore } from './store.js';
 
 const baseConnectionString = process.env.TEST_DATABASE_URL;
 const integrationDescribe = baseConnectionString ? describe : describe.skip;

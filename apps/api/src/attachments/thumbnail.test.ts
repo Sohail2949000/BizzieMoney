@@ -9,8 +9,8 @@ import {
   attachmentObjectKeys,
   supportsAttachmentThumbnail,
   thumbnailObjectKey,
-} from './thumbnail-keys';
-import { generateThumbnail, THUMBNAIL_EDGE_PX } from './thumbnail';
+} from './thumbnail-keys.js';
+import { generateThumbnail, THUMBNAIL_EDGE_PX } from './thumbnail.js';
 
 const temporaryRoots: string[] = [];
 

@@ -1,8 +1,8 @@
 import type { StorageRegistry } from '@bizziemoney/storage';
 import { describe, expect, it, vi } from 'vitest';
 
-import { DataService } from './service';
-import type { DataStore } from './types';
+import { DataService } from './service.js';
+import type { DataStore } from './types.js';
 
 function createStore(overrides: Partial<DataStore> = {}): DataStore {
   return {

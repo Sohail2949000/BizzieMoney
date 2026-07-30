@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isCalendarDate, nextBillingDate, reminderDate } from './schedule';
+import { isCalendarDate, nextBillingDate, reminderDate } from './schedule.js';
 
 describe('subscription calendar schedules', () => {
   it('clamps month-end billing dates without time-zone conversion', () => {

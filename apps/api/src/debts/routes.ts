@@ -1,8 +1,8 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-import { requireCsrf, requireSession } from '../auth/routes';
-import type { AuthServiceContract } from '../auth/types';
+import { requireCsrf, requireSession } from '../auth/routes.js';
+import type { AuthServiceContract } from '../auth/types.js';
 import {
   debtDirections,
   debtFrequencies,
@@ -11,7 +11,7 @@ import {
   type DebtPaymentWriteInput,
   type DebtServiceContract,
   type DebtWriteInput,
-} from './types';
+} from './types.js';
 
 const uuidSchema = z.uuid();
 const dateSchema = z

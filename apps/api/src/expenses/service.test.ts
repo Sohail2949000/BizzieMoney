@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { ExpenseService, normalizeTags } from './service';
-import type { ExpenseStore } from './store';
-import type { ExpenseRecord } from './types';
+import { ExpenseService, normalizeTags } from './service.js';
+import type { ExpenseStore } from './store.js';
+import type { ExpenseRecord } from './types.js';
 
 const expense: ExpenseRecord = {
   amount: '25.5000',

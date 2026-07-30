@@ -4,10 +4,10 @@ import { z } from 'zod';
 
 import { currentDateInTimeZone } from '@bizziemoney/shared';
 
-import { AppError } from '../errors';
-import { dateAfter } from './schedule';
-import { subscriptionCursorValue } from './store';
-import type { PostgresSubscriptionStore, SubscriptionStore } from './store';
+import { AppError } from '../errors.js';
+import { dateAfter } from './schedule.js';
+import { subscriptionCursorValue } from './store.js';
+import type { PostgresSubscriptionStore, SubscriptionStore } from './store.js';
 import type {
   PublicSubscription,
   PublicSubscriptionPayment,
@@ -22,7 +22,7 @@ import type {
   SubscriptionStatus,
   SubscriptionUpcomingResponse,
   SubscriptionWriteInput,
-} from './types';
+} from './types.js';
 
 const subscriptionCursorSchema = z.object({
   id: z.uuid(),

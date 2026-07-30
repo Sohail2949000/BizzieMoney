@@ -8,8 +8,8 @@ import {
 } from '@bizziemoney/database';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import { AuthService } from './service';
-import { PostgresAuthStore } from './store';
+import { AuthService } from './service.js';
+import { PostgresAuthStore } from './store.js';
 
 const baseConnectionString = process.env.TEST_DATABASE_URL;
 const integrationDescribe = baseConnectionString ? describe : describe.skip;

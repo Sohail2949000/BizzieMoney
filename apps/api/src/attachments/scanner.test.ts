@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { ClamAvMalwareScanner, createMalwareScanner } from './scanner';
+import { ClamAvMalwareScanner, createMalwareScanner } from './scanner.js';
 
 const servers: Server[] = [];
 const temporaryDirectories: string[] = [];

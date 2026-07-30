@@ -7,7 +7,7 @@ import {
   type DatabaseSchema,
 } from '@bizziemoney/database';
 
-import { attachmentObjectKeys } from '../attachments/thumbnail-keys';
+import { attachmentObjectKeys } from '../attachments/thumbnail-keys.js';
 import type {
   CategoryDeletionPreview,
   CategoryDeletionResult,
@@ -22,7 +22,7 @@ import type {
   ImportExpensesStoreResult,
   MoneyOption,
   UpdateExpenseStoreInput,
-} from './types';
+} from './types.js';
 
 export type CategoryDeletionStoreResult =
   | ({ status: 'deleted' } & CategoryDeletionResult)
