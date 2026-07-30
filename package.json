@@ -12,6 +12,7 @@
     "brand:verify": "node scripts/verify-brand-assets.mjs",
     "build": "pnpm -r --if-present build",
     "clean": "pnpm -r --if-present clean",
+    "demo:seed": "pnpm --filter @bizziemoney/database demo:seed",
     "db:migrate": "pnpm --filter @bizziemoney/database migrate",
     "dev": "pnpm --parallel --filter @bizziemoney/web --filter @bizziemoney/api --filter @bizziemoney/worker dev",
     "dev:api": "pnpm --filter @bizziemoney/api dev",
