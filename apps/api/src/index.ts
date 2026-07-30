@@ -16,4 +16,3 @@ apiRuntime.server
   });
 
 export { apiRuntime };
-export default apiRuntime.server;
