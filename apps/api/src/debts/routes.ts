@@ -8,7 +8,9 @@ import {
   debtFrequencies,
   debtSorts,
   debtStatuses,
+  type DebtPaymentWriteInput,
   type DebtServiceContract,
+  type DebtWriteInput,
 } from './types';
 
 const uuidSchema = z.uuid();
@@ -160,6 +162,28 @@ const upcomingQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(25),
 });
 
+function parseDebtWrite(input: unknown): DebtWriteInput {
+  const parsed = debtWriteSchema.parse(input);
+  return {
+    ...parsed,
+    customIntervalDays: parsed.customIntervalDays ?? null,
+    dueDate: parsed.dueDate ?? null,
+    installmentAmount: parsed.installmentAmount ?? null,
+    installmentFrequency: parsed.installmentFrequency ?? null,
+    interestNote: parsed.interestNote ?? null,
+    nextPaymentDate: parsed.nextPaymentDate ?? null,
+    notes: parsed.notes ?? null,
+  };
+}
+
+function parseDebtPaymentWrite(input: unknown): DebtPaymentWriteInput {
+  const parsed = paymentWriteSchema.parse(input);
+  return {
+    ...parsed,
+    notes: parsed.notes ?? null,
+  };
+}
+
 export function registerDebtRoutes(
   server: FastifyInstance,
   {
@@ -195,7 +219,7 @@ export function registerDebtRoutes(
         await service.create(
           session.ownerId,
           session.id,
-          debtWriteSchema.parse(request.body),
+          parseDebtWrite(request.body),
         ),
       );
   });
@@ -214,7 +238,7 @@ export function registerDebtRoutes(
       session.ownerId,
       session.id,
       debtId,
-      debtWriteSchema.parse(request.body),
+      parseDebtWrite(request.body),
     );
   });
 
@@ -263,7 +287,7 @@ export function registerDebtRoutes(
       session.id,
       debtId,
       idempotencyKey,
-      paymentWriteSchema.parse(request.body),
+      parseDebtPaymentWrite(request.body),
     );
     if (result.replayed) {
       void reply.header('idempotency-replayed', 'true');
@@ -281,7 +305,7 @@ export function registerDebtRoutes(
       session.ownerId,
       session.id,
       paymentId,
-      paymentWriteSchema.parse(request.body),
+      parseDebtPaymentWrite(request.body),
     );
   });
 

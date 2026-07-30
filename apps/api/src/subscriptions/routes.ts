@@ -9,6 +9,7 @@ import {
   subscriptionSorts,
   subscriptionStatuses,
   type SubscriptionServiceContract,
+  type SubscriptionWriteInput,
 } from './types';
 
 const uuidSchema = z.uuid();
@@ -115,6 +116,28 @@ const recordPaymentSchema = z.object({
 });
 const convertSchema = z.object({ paymentMethodId: uuidSchema });
 
+function parseSubscriptionWrite(input: unknown): SubscriptionWriteInput {
+  const parsed = subscriptionWriteSchema.parse(input);
+  return {
+    ...parsed,
+    customIntervalDays: parsed.customIntervalDays ?? null,
+    endDate: parsed.endDate ?? null,
+    notes: parsed.notes ?? null,
+    startDate: parsed.startDate ?? null,
+  };
+}
+
+function parseRecordPayment(input: unknown): {
+  amount: string | null;
+  paidDate: string;
+} {
+  const parsed = recordPaymentSchema.parse(input);
+  return {
+    ...parsed,
+    amount: parsed.amount ?? null,
+  };
+}
+
 export function registerSubscriptionRoutes(
   server: FastifyInstance,
   {
@@ -163,7 +186,7 @@ export function registerSubscriptionRoutes(
         await service.create(
           session.ownerId,
           session.id,
-          subscriptionWriteSchema.parse(request.body),
+          parseSubscriptionWrite(request.body),
         ),
       );
   });
@@ -186,7 +209,7 @@ export function registerSubscriptionRoutes(
       session.ownerId,
       session.id,
       subscriptionId,
-      subscriptionWriteSchema.parse(request.body),
+      parseSubscriptionWrite(request.body),
     );
   });
 
@@ -247,7 +270,7 @@ export function registerSubscriptionRoutes(
         session.id,
         subscriptionId,
         idempotencyKey,
-        recordPaymentSchema.parse(request.body),
+        parseRecordPayment(request.body),
       );
       if (result.replayed) {
         void reply.header('idempotency-replayed', 'true');

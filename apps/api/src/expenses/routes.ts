@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { requireCsrf, requireSession } from '../auth/routes';
 import type { AuthServiceContract } from '../auth/types';
-import type { ExpenseServiceContract } from './types';
+import type { ExpenseServiceContract, ExpenseWriteInput } from './types';
 
 const uuidSchema = z.string().uuid();
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a valid date.');
@@ -140,6 +140,17 @@ const paymentUpdateSchema = z
 const importBodySchema = z.object({
   csvText: z.string().min(1).max(2_000_000),
 });
+
+function parseExpenseWrite(input: unknown): ExpenseWriteInput {
+  const parsed = expenseWriteSchema.parse(input);
+  return {
+    ...parsed,
+    merchant: parsed.merchant ?? null,
+    notes: parsed.notes ?? null,
+    paymentMethodId: parsed.paymentMethodId ?? null,
+    tags: parsed.tags ?? [],
+  };
+}
 
 export function registerExpenseRoutes(
   server: FastifyInstance,
@@ -304,7 +315,7 @@ export function registerExpenseRoutes(
       session.ownerId,
       session.id,
       idempotencyKey,
-      expenseWriteSchema.parse(request.body),
+      parseExpenseWrite(request.body),
     );
     if (result.replayed) {
       void reply.header('idempotency-replayed', 'true');
@@ -322,7 +333,7 @@ export function registerExpenseRoutes(
       session.ownerId,
       session.id,
       expenseId,
-      expenseWriteSchema.parse(request.body),
+      parseExpenseWrite(request.body),
     );
   });
 
