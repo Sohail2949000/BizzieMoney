@@ -185,14 +185,14 @@ Expected file: `docs/screenshots/mobile.png`
 
 ## Demo
 
-- Demo URL: Not publicly available
-- Test account: Not available
+- Demo URL: [bizzie-money-demo.vercel.app](https://bizzie-money-demo.vercel.app)
+- Test account: Not published
 
-No public demo is configured in this repository. If one is added, use an
-isolated disposable database and credentials created specifically for the
-demo. Demo data may reset periodically. **Never enter real financial,
-identity, password, receipt, or other sensitive information into a public
-demo.**
+The hosted instance demonstrates the deployment and owner-account flow; it is
+not an anonymous shared sandbox and does not publish reusable credentials.
+**Never enter real financial, identity, password, receipt, or other sensitive
+information into a public demo.** A disposable test account should be used for
+public demonstrations, and its data may be reset without notice.
 
 ## Requirements
 
