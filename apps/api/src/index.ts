@@ -30,7 +30,7 @@ import { PostgresPreferenceStore } from './preferences/store.js';
 import { SubscriptionService } from './subscriptions/service.js';
 import { requestUsesSecureCookies } from './request-security.js';
 import { PostgresSubscriptionStore } from './subscriptions/store.js';
-import { buildServer } from './server.js';
+import { buildServer } from './app-server.js';
 
 async function main(): Promise<void> {
   const config = readApiConfig();

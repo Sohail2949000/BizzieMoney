@@ -12,7 +12,7 @@ import type { DataServiceContract } from './data/types.js';
 import type { ExpenseServiceContract } from './expenses/types.js';
 import type { PreferenceServiceContract } from './preferences/types.js';
 import { requestUsesSecureCookies } from './request-security.js';
-import { buildServer, type BuildServerOptions } from './server.js';
+import { buildServer, type BuildServerOptions } from './app-server.js';
 import type { SubscriptionServiceContract } from './subscriptions/types.js';
 
 const owner = {
