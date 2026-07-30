@@ -1,6 +1,9 @@
 import { verifyDatabaseConnection } from '@bizziemoney/database';
+import Fastify from 'fastify';
 
-import { apiRuntime } from './runtime.js';
+import { createApiRuntime } from './runtime.js';
+
+const apiRuntime = createApiRuntime(Fastify);
 
 async function main(): Promise<void> {
   await verifyDatabaseConnection(apiRuntime.database);

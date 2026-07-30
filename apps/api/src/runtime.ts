@@ -2,7 +2,7 @@ import {
   createDatabase,
   verifyDatabaseConnection,
 } from '@bizziemoney/database';
-import Fastify from 'fastify';
+import type Fastify from 'fastify';
 import {
   attachmentStorageConfigFromPersisted,
   readBackupStorageBaseConfig,
@@ -33,7 +33,7 @@ import { requestUsesSecureCookies } from './request-security.js';
 import { PostgresSubscriptionStore } from './subscriptions/store.js';
 import { buildServer } from './app-server.js';
 
-function createApiRuntime() {
+export function createApiRuntime(fastifyFactory: typeof Fastify) {
   const config = readApiConfig();
   const attachmentStorageBase = readAttachmentStorageConfig();
   const storageSecretBox = new SecretBox(
@@ -152,7 +152,7 @@ function createApiRuntime() {
       readinessCheck: () => verifyDatabaseConnection(database),
       subscriptionService,
     },
-    Fastify,
+    fastifyFactory,
   );
 
   server.addHook('onClose', async () => {
@@ -161,5 +161,3 @@ function createApiRuntime() {
 
   return { config, database, server };
 }
-
-export const apiRuntime = createApiRuntime();

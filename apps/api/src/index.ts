@@ -1,4 +1,8 @@
-import { apiRuntime } from './runtime.js';
+import Fastify from 'fastify';
+
+import { createApiRuntime } from './runtime.js';
+
+const apiRuntime = createApiRuntime(Fastify);
 
 apiRuntime.server
   .listen({
