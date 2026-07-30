@@ -1,0 +1,127 @@
+name: Publish Docker images
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version or tag, for example v1.0.0
+        required: true
+        default: v1.0.0
+        type: string
+      prerelease:
+        description: Treat this manual run as a prerelease
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  IMAGE_NAME: bizziemoney
+  RELEASE_TAG: ${{ github.event.release.tag_name || inputs.version }}
+  IS_PRERELEASE: ${{ (github.event_name == 'release' && github.event.release.prerelease) || inputs.prerelease }}
+
+jobs:
+  publish:
+    name: Publish ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: web
+            suffix: ''
+            title: BizzieMoney web
+            description: BizzieMoney unprivileged web gateway
+          - target: api
+            suffix: -api
+            title: BizzieMoney API
+            description: BizzieMoney authenticated Fastify API
+          - target: worker
+            suffix: -worker
+            title: BizzieMoney worker
+            description: BizzieMoney scheduled jobs and backup worker
+    steps:
+      - name: Check required Docker Hub secrets
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          if [ -z "$DOCKERHUB_USERNAME" ] || [ -z "$DOCKERHUB_TOKEN" ]; then
+            echo "::error::Set DOCKERHUB_USERNAME and DOCKERHUB_TOKEN in repository Actions secrets."
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Validate release and prepare tags
+        id: release
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          IMAGE_SUFFIX: ${{ matrix.suffix }}
+        shell: bash
+        run: |
+          version="${RELEASE_TAG#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([+-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Release tag must be semantic versioning, for example v1.0.0 or v1.0.0-rc.1."
+            exit 1
+          fi
+
+          major="${version%%.*}"
+          remainder="${version#*.}"
+          minor="${remainder%%.*}"
+          image="${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
+          created="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+          {
+            echo "version=$version"
+            echo "created=$created"
+            echo "tags<<EOF"
+            echo "${image}:${version}${IMAGE_SUFFIX}"
+            if [[ "$version" != *-* && "$version" != *+* ]]; then
+              echo "${image}:${major}.${minor}${IMAGE_SUFFIX}"
+              echo "${image}:${major}${IMAGE_SUFFIX}"
+              if [[ "$IS_PRERELEASE" != "true" ]]; then
+                echo "${image}:latest${IMAGE_SUFFIX}"
+              fi
+            fi
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: docker/Dockerfile
+          target: ${{ matrix.target }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.release.outputs.tags }}
+          labels: |
+            org.opencontainers.image.created=${{ steps.release.outputs.created }}
+            org.opencontainers.image.description=${{ matrix.description }}
+            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.title=${{ matrix.title }}
+            org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.version=${{ steps.release.outputs.version }}
+          cache-from: type=gha,scope=release-${{ matrix.target }}
+          cache-to: type=gha,mode=max,scope=release-${{ matrix.target }}

@@ -1,0 +1,76 @@
+name: Bug report
+description: Report a reproducible BizzieMoney defect
+title: '[Bug]: '
+labels: ['bug', 'needs-triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, financial records, receipts, database dumps,
+        backup archives, or security vulnerabilities. Follow SECURITY.md for
+        private security reports.
+  - type: input
+    id: version
+    attributes:
+      label: BizzieMoney version
+      description: Release tag or commit SHA.
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Installation method
+      options:
+        - Root Docker Compose
+        - External-database production Compose
+        - Docker development Compose
+        - Source development
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem without private data.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, Docker/Node/PostgreSQL versions, and reverse proxy.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted diagnostics
+      description: Remove secrets, IDs, names, email addresses, financial data, and file contents.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed all secrets and private data.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

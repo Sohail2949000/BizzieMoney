@@ -1,0 +1,26 @@
+FROM node:24-alpine
+
+RUN apk add --no-cache postgresql-client tini
+
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+
+RUN corepack enable && corepack prepare pnpm@11.17.0 --activate
+
+WORKDIR /workspace
+
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
+COPY apps/api/package.json apps/api/package.json
+COPY apps/web/package.json apps/web/package.json
+COPY apps/worker/package.json apps/worker/package.json
+COPY packages/config/package.json packages/config/package.json
+COPY packages/database/package.json packages/database/package.json
+COPY packages/shared/package.json packages/shared/package.json
+COPY packages/storage/package.json packages/storage/package.json
+COPY packages/ui/package.json packages/ui/package.json
+
+RUN pnpm install --frozen-lockfile=false
+
+COPY . .
+
+ENTRYPOINT ["/sbin/tini", "--"]

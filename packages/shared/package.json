@@ -1,0 +1,23 @@
+{
+  "name": "@bizziemoney/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.5.1"
+  }
+}

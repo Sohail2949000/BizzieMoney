@@ -1,0 +1,9 @@
+node_modules
+.data
+.pnpm-store
+.tmp-*
+dist
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml

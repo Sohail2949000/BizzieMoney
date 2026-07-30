@@ -1,0 +1,133 @@
+name: bizziemoney
+
+services:
+  web:
+    image: '${BIZZIEMONEY_IMAGE:-bizziemoney}:${BIZZIEMONEY_VERSION:-1.0.0}'
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: web
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - '${WEB_PORT:-8080}:8080'
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+
+  api:
+    image: '${BIZZIEMONEY_IMAGE:-bizziemoney}:${BIZZIEMONEY_VERSION:-1.0.0}-api'
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: api
+    environment:
+      APP_ALLOWED_ORIGINS: ${APP_ALLOWED_ORIGINS:-}
+      APP_URL: ${APP_URL:?Set APP_URL to the public BizzieMoney origin}
+      ATTACHMENT_ALLOWED_MIME_TYPES: ${ATTACHMENT_ALLOWED_MIME_TYPES:-application/pdf,image/png,image/jpeg,image/webp,text/plain,text/csv}
+      ATTACHMENT_LOCAL_PATH: /data/attachments
+      ATTACHMENT_MALWARE_SCANNER: ${ATTACHMENT_MALWARE_SCANNER:-disabled}
+      ATTACHMENT_S3_ACCESS_KEY_ID: ${ATTACHMENT_S3_ACCESS_KEY_ID:-}
+      ATTACHMENT_S3_BUCKET: ${ATTACHMENT_S3_BUCKET:-}
+      ATTACHMENT_S3_ENDPOINT: ${ATTACHMENT_S3_ENDPOINT:-}
+      ATTACHMENT_S3_FORCE_PATH_STYLE: ${ATTACHMENT_S3_FORCE_PATH_STYLE:-false}
+      ATTACHMENT_S3_PREFIX: ${ATTACHMENT_S3_PREFIX:-bizziemoney}
+      ATTACHMENT_S3_REGION: ${ATTACHMENT_S3_REGION:-auto}
+      ATTACHMENT_S3_SECRET_ACCESS_KEY: ${ATTACHMENT_S3_SECRET_ACCESS_KEY:-}
+      ATTACHMENT_STORAGE_PROVIDER: ${ATTACHMENT_STORAGE_PROVIDER:-local}
+      BACKUP_LOCAL_PATH: /data/backups
+      BACKUP_SECRETS_KEY: ${BACKUP_SECRETS_KEY:-}
+      CLAMAV_HOST: ${CLAMAV_HOST:-clamav}
+      CLAMAV_PORT: ${CLAMAV_PORT:-3310}
+      CLAMAV_TIMEOUT_MS: ${CLAMAV_TIMEOUT_MS:-30000}
+      API_HOST: 0.0.0.0
+      API_PORT: 3000
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-20}
+      NODE_ENV: production
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      SESSION_TTL_HOURS: ${SESSION_TTL_HOURS:-168}
+      TZ: ${TZ:-Asia/Riyadh}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://127.0.0.1:3000/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    volumes:
+      - '${ATTACHMENT_HOST_PATH:-../.data/attachments}:/data/attachments'
+      - '${BACKUP_HOST_PATH:-../.data/backups}:/data/backups'
+
+  worker:
+    image: '${BIZZIEMONEY_IMAGE:-bizziemoney}:${BIZZIEMONEY_VERSION:-1.0.0}-worker'
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: worker
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      ATTACHMENT_CLEANUP_INTERVAL_MS: ${ATTACHMENT_CLEANUP_INTERVAL_MS:-5000}
+      ATTACHMENT_LOCAL_PATH: /data/attachments
+      ATTACHMENT_S3_ACCESS_KEY_ID: ${ATTACHMENT_S3_ACCESS_KEY_ID:-}
+      ATTACHMENT_S3_BUCKET: ${ATTACHMENT_S3_BUCKET:-}
+      ATTACHMENT_S3_ENDPOINT: ${ATTACHMENT_S3_ENDPOINT:-}
+      ATTACHMENT_S3_FORCE_PATH_STYLE: ${ATTACHMENT_S3_FORCE_PATH_STYLE:-false}
+      ATTACHMENT_S3_PREFIX: ${ATTACHMENT_S3_PREFIX:-bizziemoney}
+      ATTACHMENT_S3_REGION: ${ATTACHMENT_S3_REGION:-auto}
+      ATTACHMENT_S3_SECRET_ACCESS_KEY: ${ATTACHMENT_S3_SECRET_ACCESS_KEY:-}
+      ATTACHMENT_STORAGE_PROVIDER: ${ATTACHMENT_STORAGE_PROVIDER:-local}
+      BACKUP_JOB_INTERVAL_MS: ${BACKUP_JOB_INTERVAL_MS:-5000}
+      BACKUP_LOCAL_PATH: /data/backups
+      BACKUP_SECRETS_KEY: ${BACKUP_SECRETS_KEY:-}
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      SESSION_MAINTENANCE_INTERVAL_MS: ${SESSION_MAINTENANCE_INTERVAL_MS:-21600000}
+      SESSION_RETENTION_DAYS: ${SESSION_RETENTION_DAYS:-30}
+      SUBSCRIPTION_REMINDER_INTERVAL_MS: ${SUBSCRIPTION_REMINDER_INTERVAL_MS:-60000}
+      TZ: ${TZ:-Asia/Riyadh}
+      WORKER_HEARTBEAT_INTERVAL_MS: ${WORKER_HEARTBEAT_INTERVAL_MS:-30000}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    volumes:
+      - '${ATTACHMENT_HOST_PATH:-../.data/attachments}:/data/attachments'
+      - '${BACKUP_HOST_PATH:-../.data/backups}:/data/backups'
+
+  clamav:
+    image: clamav/clamav:1.4.5-debian13-slim
+    profiles: ['malware-scan']
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - bizziemoney_clamav_data:/var/lib/clamav
+
+volumes:
+  bizziemoney_clamav_data:
+    name: bizziemoney_clamav_data

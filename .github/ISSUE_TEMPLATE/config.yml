@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: https://github.com/Sohail2949000/BizzieMoney/security/advisories/new
+    about: Do not report vulnerabilities or private data in a public issue.

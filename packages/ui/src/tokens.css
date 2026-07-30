@@ -1,0 +1,87 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
+  --bm-accent: #635bff;
+  --bm-accent-hover: #5148e5;
+  --bm-accent-soft: #efefff;
+
+  --bm-page: #f5f5f5;
+  --bm-surface: #ffffff;
+  --bm-surface-muted: #fafafa;
+  --bm-border: #e5e7eb;
+  --bm-border-strong: #d4d4d8;
+  --bm-text: #18181b;
+  --bm-text-secondary: #71717a;
+  --bm-text-muted: #a1a1aa;
+
+  --bm-success: #16a36a;
+  --bm-success-soft: #e8f8f0;
+  --bm-danger: #e5484d;
+  --bm-danger-soft: #fdebec;
+  --bm-warning: #d97706;
+  --bm-warning-soft: #fff4df;
+  --bm-info: #3b82f6;
+  --bm-info-soft: #eaf2ff;
+
+  --bm-radius-sm: 8px;
+  --bm-radius-md: 10px;
+  --bm-radius-lg: 12px;
+  --bm-shadow-sm: 0 1px 2px rgb(24 24 27 / 0.04);
+
+  --bm-space-1: 4px;
+  --bm-space-2: 8px;
+  --bm-space-3: 12px;
+  --bm-space-4: 16px;
+  --bm-space-5: 20px;
+  --bm-space-6: 24px;
+  --bm-space-8: 32px;
+  --bm-space-10: 40px;
+  --bm-space-12: 48px;
+
+  --bm-focus: 0 0 0 3px rgb(99 91 255 / 0.22);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bm-page: #18181b;
+  --bm-surface: #27272a;
+  --bm-surface-muted: #202023;
+  --bm-border: #3f3f46;
+  --bm-border-strong: #52525b;
+  --bm-text: #fafafa;
+  --bm-text-secondary: #a1a1aa;
+  --bm-text-muted: #71717a;
+  --bm-accent-soft: #35325e;
+  --bm-success-soft: #173e31;
+  --bm-danger-soft: #4a2629;
+  --bm-warning-soft: #4a3419;
+  --bm-info-soft: #213651;
+  --bm-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='system'] {
+    color-scheme: dark;
+    --bm-page: #18181b;
+    --bm-surface: #27272a;
+    --bm-surface-muted: #202023;
+    --bm-border: #3f3f46;
+    --bm-border-strong: #52525b;
+    --bm-text: #fafafa;
+    --bm-text-secondary: #a1a1aa;
+    --bm-text-muted: #71717a;
+    --bm-accent-soft: #35325e;
+    --bm-success-soft: #173e31;
+    --bm-danger-soft: #4a2629;
+    --bm-warning-soft: #4a3419;
+    --bm-info-soft: #213651;
+    --bm-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.2);
+  }
+}

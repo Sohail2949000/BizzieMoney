@@ -1,0 +1,51 @@
+# Dependencies and package-manager state
+node_modules/
+**/node_modules/
+.pnpm-store/
+
+# Compiled and generated output
+dist/
+**/dist/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.eslintcache
+
+# Runtime configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Persistent application data, exports, and database artifacts
+.data/
+postgres-data/
+*.backup
+*.bzm
+*.dump
+*.pgdump
+
+# Local logs, caches, and temporary work
+*.log
+.tmp-*
+.cache/
+tmp/
+temp/
+
+# Private agent/session metadata
+.codex/
+.agents/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,16 @@
+export const expenseIconNames = [
+  'banknote',
+  'car',
+  'circle-ellipsis',
+  'credit-card',
+  'graduation-cap',
+  'heart-pulse',
+  'house',
+  'landmark',
+  'receipt',
+  'shopping-bag',
+  'smartphone',
+  'ticket',
+  'utensils',
+  'wallet-cards',
+] as const;

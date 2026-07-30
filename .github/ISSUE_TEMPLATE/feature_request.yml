@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose a focused improvement
+title: '[Feature]: '
+labels: ['enhancement', 'needs-triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the workflow and privacy/security implications. Do not include
+        real financial or account data.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest useful outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: security
+    attributes:
+      label: Data, migration, and security considerations
+      description: Note new stored data, external services, permissions, or migration needs.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope checks
+      options:
+        - label: I searched existing issues and roadmap notes.
+          required: true
+        - label: I understand that a request is not a delivery commitment.
+          required: true
